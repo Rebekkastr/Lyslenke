@@ -1,12 +1,10 @@
 #include <driver/i2s.h>
 #include <Arduino.h>
 
-// Du kan endre disse lett nå
 #define SAMPLE_RATE 8000
 #define LEVEL_BLOCK_SIZE 256 // antall samples vi bruker for å lage ett level
 #define I2S_MIC_CHANNEL I2S_CHANNEL_FMT_ONLY_LEFT
 
-// I2S pins (samme som du hadde)
 #define I2S_MIC_SERIAL_CLOCK GPIO_NUM_32
 #define I2S_MIC_LEFT_RIGHT_CLOCK GPIO_NUM_25
 #define I2S_MIC_SERIAL_DATA GPIO_NUM_33
@@ -43,16 +41,13 @@ void setup()
 
 void loop()
 {
-  // static = bufferet finnes “for alltid”, ikke bare i denne loop-runden
+
   static int32_t samples[LEVEL_BLOCK_SIZE];
 
   size_t bytesRead = 0;
 
-  // Leser inn en blokk med rå lydsamples fra I2S.
-  // portMAX_DELAY: vent til blokken er fylt (dvs. til nok samples har kommet inn)
   i2s_read(I2S_NUM_0, samples, sizeof(samples), &bytesRead, portMAX_DELAY);
 
-  // Hvor mange int32-samples fikk vi egentlig?
   int count = bytesRead / sizeof(int32_t);
   if (count <= 0)
   {
@@ -72,6 +67,4 @@ void loop()
 
   // Sender ett tall per blokk (jevn strøm)
   Serial.println(level);
-
-  // Ingen 'g' – vi bare fortsetter
 }
