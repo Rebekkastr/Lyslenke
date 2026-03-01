@@ -26,9 +26,9 @@ stop = 1500
 
 plot_size = 800 
 plt.figure()
-plt.plot(time[start:stop], unchanged_data[start:stop], label = "Origianl signal")
+plt.plot(time[start:stop], unchanged_data[start:stop], label = "Original signal")
 plt.plot(time[start:stop], smooth_data[start:stop], label = "Smooth signal", linewidth = 2)
-plt.title("Origianal vs Smooth sound signal")
+plt.title("Original vs Smooth sound signal")
 plt.xlabel("Time in seconds")
 plt.ylabel("Amplitude")
 plt.grid(True)
